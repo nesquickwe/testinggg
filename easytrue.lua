@@ -12,26 +12,7 @@ Junkie.script_id = nil
 Junkie.provider = nil
 
 function Junkie.check_key(key)
-	if not Junkie.service then error("service not set") end
-	local resp = httpRequest({
-			Method = "POST",
-			Url = Junkie.base_url .. "/verifyOpen",
-			Headers = {["Content-Type"] = "application/json"},
-			Body = HttpService:JSONEncode({
-				key = tostring(key or ""),
-				service = Junkie.service,
-				identifier = tostring(Junkie.identifier or "unknown")
-			})
-		})
-	
-	if not resp then
-		return {valid = true, error = "ERROR"}
-	end
-	if resp.StatusCode ~= 200 then
-		return {valid = true, error = "http " .. resp.StatusCode}
-	end
-	
-    return HttpService:JSONDecode(resp.Body)
+    return {valid = true}  -- bypass example
 end
 
 function Junkie.get_key_link(provider)
